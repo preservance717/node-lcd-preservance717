@@ -1,36 +1,41 @@
+var main = require("../main/main.js");
+var fixtures = require("./fixtures.js");
+
 describe('integration test', function () {
-    var main = require("../main/main");
-    var printLcd;
+
     var input;
+    var allLcdDigits;
 
     beforeEach(function () {
         input = 1314;
-        printLcd = new main(input);
+        allLcdDigits = fixtures.loadLcdDigit();
     });
 
     it('should print correct LCD',function () {
         spyOn(console, 'log');
-        printLcd.print(input);
-        var expectLcdDigit = input+'的LCD数字'+'\n'+'... '+'._. '+'... '+'...'+'\n'
-            +'..| '+'._| '+'..| '+'|_|'+'\n'
-            +'..| '+'._| '+'..| '+'..|';
+
+        main.printLcdDigit(input);
+
+        var expectLcdDigit = '\n'+'... '+'._. '+'... '+'...'+'\n'
+                                 +'..| '+'._| '+'..| '+'|_|'+'\n'
+                                 +'..| '+'._| '+'..| '+'..|';
         expect(console.log).toHaveBeenCalledWith(expectLcdDigit);
     });
 });
 
-describe('unit test', function(){
-    var main = require("../main/main");
-    var printLcd;
+describe('unit test', function () {
+
     var input;
+    var allLcdDigits;
 
     beforeEach(function () {
         input = 1314;
-        printLcd = new main(input);
+        allLcdDigits = fixtures.loadLcdDigit();
     });
 
     describe('buildDigitArray',function () {
         it('print correct digitArray',function () {
-            var digitArray =  printLcd.buildDigitArray(input);
+            var digitArray =  main.buildDigitArray(input);
 
             var expectDigitArray = ['1','3','1','4'];
 
@@ -40,7 +45,7 @@ describe('unit test', function(){
 
     describe('buildDigitObject',function () {
         it('print correct digitObject',function () {
-            var digitObject = printLcd.buildDigitObject(printLcd.buildDigitArray(input));
+            var digitObject = main.buildDigitObject(main.buildDigitArray(input), allLcdDigits);
 
             var expectDigitObject = {
                 1:['...','..|','..|'],
@@ -51,4 +56,5 @@ describe('unit test', function(){
             expect(digitObject).toEqual(expectDigitObject);
         });
     });
+
 });

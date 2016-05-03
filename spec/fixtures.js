@@ -13,4 +13,4 @@ function loadLcdDigit() {
     };
 }
 
-module.exports = loadLcdDigit;
+module.exports = {loadLcdDigit:loadLcdDigit};
