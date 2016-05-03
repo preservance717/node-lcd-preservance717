@@ -1,13 +1,17 @@
-function printLcdDigit(input) {};
+function printLcdDigit(input) {
+    var fixtures = require('../spec/fixtures');
+    var lcdDigitObject = fixtures.loadLcdDigit();
 
-printLcdDigit.prototype.buildDigitArray = function (input){
+    var digitArray = buildDigitArray(input);
+    var digitObject = buildDigitObject(digitArray, lcdDigitObject);
+    print(digitObject);
+}
+
+function buildDigitArray(input) {
     return input.toString().split('');
 }
 
-printLcdDigit.prototype.buildDigitObject = function (input) {
-    var digitArray = this.buildDigitArray(input)
-    var fixtures = require('../spec/fixtures');
-    var lcdDigitObject = fixtures();
+function buildDigitObject(digitArray, lcdDigitObject) {
     var lcdDigitArray = Object.keys(lcdDigitObject);
     var digitObject = {};
 
@@ -22,9 +26,8 @@ printLcdDigit.prototype.buildDigitObject = function (input) {
     return digitObject;
 }
 
-printLcdDigit.prototype.print = function (input) {
-    var digitObject = this.buildDigitObject(input);
-    var expectLcdDigit = input + '的LCD数字';
+function print(digitObject) {
+    var expectLcdDigit = '';
     var inputArray = Object.keys(digitObject);
 
     for(var i = 0; i < inputArray.length; i++){
@@ -38,4 +41,5 @@ printLcdDigit.prototype.print = function (input) {
     console.log(expectLcdDigit);
 }
 
-module.exports = printLcdDigit;
+module.exports = {printLcdDigit:printLcdDigit,buildDigitArray:buildDigitArray,
+                  buildDigitObject:buildDigitObject, print:print};
