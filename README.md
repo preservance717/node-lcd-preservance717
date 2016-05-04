@@ -3,4 +3,5 @@
 
 本地安装 jasmine 和 jasmine-spec-reporte的命令：
     npm install jasmine --save-dev
+
     npm install jasmine-spec-reporter --save-dev
